@@ -108,10 +108,12 @@ def to_type(names: Collection[namelike]) -> List[name]:
 
 def to_types(names: Dict[namelike, Optional[namelike]]) -> Dict[name, Optional[name]]:
     """From name-like dictionary to name dictionary."""
-    return {
+    types = {
         parse_type(type_): parse_type(ancestor) if ancestor else None
         for type_, ancestor in names.items()
     }
+    types[Symbols.OBJECT.value] = None
+    return types
 
 
 def _is_a_keyword(word: str, ignore: Optional[AbstractSet[str]] = None) -> bool:
